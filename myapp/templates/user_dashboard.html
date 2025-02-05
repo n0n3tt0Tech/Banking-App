@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard - Pakistan National Bank{% endblock %}
+{% block navbar %}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #0d6efd; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);">
+    <div class="container-fluid">
+        <a class="navbar-brand d-flex align-items-center" href="{% url 'home' %}">
+            <span class="bank-logo" style="font-size: 30px;"><b>Pakistan National Bank</b></span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <form action="{% url 'logout' %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link" style="font-weight: 500;">Logout</button>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+{% endblock %}
+{% block content %}
+<div class="container py-5" style="background-color: #f8f9fa; min-height: 100vh;">
+    <h2 class="text-center text-primary mb-4" style="font-weight: 600;"><b>Welcome, {{ user.username }}</b></h2>
+    <p class="text-center text-muted">Manage your finances securely</p>
+    
+    {% if messages %}
+        <div class="messages py-3">
+            {% for message in messages %}
+                <div class="message-bar alert-{{ message.tags }} mb-3 p-3 text-white rounded" role="alert">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div>
+                            {% if message.tags == 'success' %}
+                                <i class="bi bi-check-circle-fill me-2"></i> <!-- Success Icon -->
+                            {% elif message.tags == 'error' %}
+                                <i class="bi bi-exclamation-circle-fill me-2"></i> <!-- Error Icon -->
+                            {% endif %}
+                            {{ message|escape }}
+                        </div>
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card shadow-lg card-hover">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Account Balance</h5>
+                    <p class="card-text text-success fw-bold">${{ balance }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row mt-4 justify-content-center">
+        <div class="col-md-3">
+            <a href="{% url 'transactions' %}" class="btn btn-primary w-100">View Transactions</a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'transfer_money' %}" class="btn btn-success w-100">Transfer Money</a>
+        </div>
+        <div class="col-md-3">
+            <a href="{% url 'pay_bills' %}" class="btn btn-warning w-100">Pay Bills</a>
+        </div>
+    </div>
+</div>
+<style>
+    .card-hover {
+        transition: transform 0.3s ease-in-out;
+    }
+    .card-hover:hover {
+        transform: scale(1.05);
+    }
+
+    .message-bar {
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .message-bar:hover {
+        transform: scale(1.02);
+    }
+
+    .message-bar.alert-success {
+        background-color: #28a745;
+    }
+
+    .message-bar.alert-error {
+        background-color: #dc3545;
+    }
+</style>
+{% endblock %}

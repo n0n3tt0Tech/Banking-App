@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<!-- Add custom styles for Admin Dashboard heading -->
+<style>
+    h2 {
+        font-size: 3rem; /* Larger font size */
+        font-weight: bold; /* Make it bold */
+        background: linear-gradient(90deg, rgb(7, 76, 119) 0%, rgba(0, 204, 255, 1) 100%); /* Gradient background */
+        -webkit-background-clip: text; /* Clip the gradient to text (Chrome, Safari) */
+        background-clip: text; /* Add support for other browsers (Firefox does not support this) */
+        color: transparent; /* Make the text color transparent to show the gradient */
+        text-align: center; /* Center the text */
+        letter-spacing: 2px; /* Add some letter spacing */
+        text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2); /* Add shadow to the text */
+        transition: all 0.3s ease-in-out; /* Smooth transition for hover */
+    }
+
+    /* Hover effect */
+    h2:hover {
+        transform: scale(1.1); /* Make the text 10% bigger */
+        text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3); /* Increase shadow intensity */
+    }
+
+    /* Card Hover Effect */
+    .card:hover {
+        transform: scale(1.05); /* Make the card 5% bigger */
+        transition: transform 0.3s ease; /* Smooth transition */
+    }
+</style>
+
+
+<div class="container mt-4">
+    <h2 class="mb-4">Admin Dashboard</h2>
+
+    <div class="row">
+        <!-- Total Users Card -->
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Users</h5>
+                    <p class="card-text display-4">{{ profiles|length }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Balance Card -->
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Total Balance</h5>
+                    <p class="card-text display-4">${{ total_balance }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- User Profiles Section -->
+    <div class="card mt-4">
+        <div class="card-body">
+            <h5 class="card-title">User Profiles</h5>
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Username</th>
+                        <th>Balance</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for profile in profiles %}
+                    <tr>
+                        <td>{{ profile.user.username }}</td>
+                        <td>${{ profile.balance }}</td>
+                        <td>
+                            <form action="{% url 'delete_user' profile.user.username %}" method="post" style="display:inline;"
+                                    onsubmit="return confirmDelete('{{ profile.user.username }}')">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger btn-sm">
+                                     Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="4" class="text-center">No profiles available.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    function confirmDelete(username) {
+        return confirm(`Are you sure you want to delete user "${username}"?`);
+    }
+</script>
+<!-- Add FontAwesome for icons -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+<script>
+    // Refresh the page every 2 minutes
+    function refreshPage() {
+        window.location.reload();
+    }
+    setInterval(refreshPage, 120000); 
+</script>
+{% endblock %}

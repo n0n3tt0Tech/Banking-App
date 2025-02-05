@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+  <div class="container mt-5">
+    <h2 class="text-center">Pay Bills</h2>
+    
+    <form method="post">
+      {% csrf_token %}
+      
+      <div class="mb-3">
+        <label for="bill_type" class="form-label">Bill Type</label>
+        <select id="bill_type" name="bill_type" class="form-control" required>
+          <option value="electricity">Electricity</option>
+          <option value="water">Water</option>
+          <option value="internet">Internet</option>
+          <option value="gas">Gas</option>
+        </select>
+      </div>
+      
+      <div class="mb-3">
+        <label for="amount" class="form-label">Amount</label>
+        <input type="number" id="amount" name="amount" class="form-control" required>
+      </div>
+      
+      <button type="submit" class="btn btn-primary">Pay Bill</button>
+      <a href="{% url 'user_dashboard' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+  </div>
+{% endblock %}
