@@ -33,7 +33,7 @@ Welcome to **Banking App**, a Django-based web application with various user fun
 1. Clone the repository:
     ```bash
     https://github.com/n0n3tt0Tech/Banking-App.git
-    cd myapp
+    cd Banking-App
     ```
 
 2. Install dependencies:
