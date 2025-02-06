@@ -43,7 +43,7 @@ Make sure you are in virtual environment.
     pip install -r requirements.txt
     ```
     This may not install complete requirements. If it may give error on installing "pywin32". Ignore it. Run the migration command
-    that is given below. It will ask you to install modules. Install them and run migration again. 
+    given below. It will ask you to install modules. Install them and run migration again. 
 
 4. Configure the database:
     - Create a database in PostgreSQL or use SQLite for development.
@@ -67,6 +67,17 @@ Make sure you are in virtual environment.
     ```
 
 8. Visit the app at `http://127.0.0.1:8000/`.
+
+9. To acess via https, use ngrok. Make sure your app is running. Go to ngrok, and run the command:
+      ```bash
+    ngrok http 8000
+    ```
+   This will give you https link for your application. Add this domain in the ALLOWED_HOSTS list in settings.py file.
+   It will look like:
+   
+   ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'bece-116-90-118-30.ngrok-free.app']
+
+   I will recommend you to use ngrok.
 
 ## Usage
 
