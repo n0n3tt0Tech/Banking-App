@@ -30,6 +30,8 @@ Welcome to **Banking App**, a Django-based web application with various user fun
 
 ### Installation Steps:
 
+Make sure you are in virtual environment.
+
 1. Clone the repository:
     ```bash
     https://github.com/n0n3tt0Tech/Banking-App.git
@@ -40,27 +42,31 @@ Welcome to **Banking App**, a Django-based web application with various user fun
     ```bash
     pip install -r requirements.txt
     ```
+    This may not install complete requirements. If it may give error on installing "pywin32". Ignore it. Run the migration command
+    that is given below. It will ask you to install modules. Install them and run migration again. 
 
-3. Configure the database:
+4. Configure the database:
     - Create a database in PostgreSQL or use SQLite for development.
     - Modify the `DATABASES` setting in `settings.py` if necessary.
 
-4. Run migrations:
+5. Run migrations:
     ```bash
     python manage.py migrate
     ```
 
-5. Create a superuser (for admin access):
+6. Create a superuser (for admin access):
     ```bash
-    python manage.py createsuperuser (set username and password. Don't add email)
+    python manage.py createsuperuser 
     ```
+     (set username and password. Don't add email)
+    The super user or admin is already created with username: "iamadmin" and password: "Password.,90" 
 
-6. Run the development server:
+7. Run the development server:
     ```bash
     python manage.py runserver
     ```
 
-7. Visit the app at `http://127.0.0.1:8000/`.
+8. Visit the app at `http://127.0.0.1:8000/`.
 
 ## Usage
 
