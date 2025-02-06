@@ -58,7 +58,7 @@ Make sure you are in virtual environment.
     ```bash
     python manage.py createsuperuser 
     ```
-     (set username and password. Don't add email)
+    When creating superuser set username and password. Don't add email.
     The super user or admin is already created with username: "iamadmin" and password: "Password.,90" 
 
 7. Run the development server:
@@ -68,7 +68,9 @@ Make sure you are in virtual environment.
 
 8. Visit the app at `http://127.0.0.1:8000/`.
 
-9. To acess via https, use ngrok. Make sure your app is running. Go to ngrok, and run the command:
+9. Ngrok(Recommended):
+
+   To acess via https, use ngrok. Make sure your app is running. Go to ngrok, and run the command:
       ```bash
     ngrok http 8000
     ```
